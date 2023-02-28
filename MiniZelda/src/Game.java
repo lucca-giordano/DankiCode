@@ -24,7 +24,7 @@ public class Game extends Canvas implements Runnable{
         frame.setResizable(false); // Sets the frame to not be resizable
         frame.setVisible(true); // Sets the frame to be visible
         
-        new Thread(game).start();
+        new Thread(game).start(); // Starts the game thread
     }
 
     public void run() {
