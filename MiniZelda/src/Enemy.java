@@ -2,11 +2,12 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Enemy extends Rectangle{
 
     public int right = 1, left = 0, up = 0, down = 0;
-    public int spd = 4;
+    public int spd = 2;
 
     public int curAnimation = 0;
 
@@ -22,13 +23,33 @@ public class Enemy extends Rectangle{
         super(x, y, 32, 32);
     }
 
+    public void perseguirPlayer(){
+        if(x < Game.player.x && World.isFree(x+spd, y)){
+            if(new Random().nextInt(100) < 50){
+                x += spd;
+            }
+        }else if(x > Game.player.x && World.isFree(x-spd, y)){
+            if(new Random().nextInt(100) < 50){
+                x -= spd;
+            }
+        }
+
+        if(y < Game.player.y && World.isFree(x, y+spd)){
+            if(new Random().nextInt(100) < 50){
+                y += spd;
+            }
+        }else if(y > Game.player.y && World.isFree(x, y-spd)){
+            if(new Random().nextInt(100) < 50){
+                y -= spd;
+            }
+        }
+    } 
+
     public void tick(){
 
         boolean moved = true;
 
-        if (right == 1){
-            x++;
-        }
+        perseguirPlayer();
 
         if(moved){
             curFrames++;
